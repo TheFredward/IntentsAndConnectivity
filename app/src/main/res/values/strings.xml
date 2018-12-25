@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AndroidBasicExIntents</string>
+    <string name="edit_message">Enter Query</string>
+    <string name="button_message">Search</string>
+</resources>
