@@ -2,4 +2,7 @@
     <string name="app_name">AndroidBasicExIntents</string>
     <string name="edit_message">Enter Query</string>
     <string name="button_message">Search</string>
+    <string name="New"> Recent releases</string>
+    <string name="Favorites">Favorites</string>
+    <string name="Update_settings">Update Suggestions</string>
 </resources>
