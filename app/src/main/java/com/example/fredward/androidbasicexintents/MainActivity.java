@@ -26,13 +26,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
         mDrawerLayout = findViewById(R.id.drawer_layout);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         NavigationView navigationView = findViewById(R.id.Nav_menu);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.recent_release:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new recentFragment()).commit();
+                        break;
+                    case R.id.favorites:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new favoritesFragment()).commit();
+                        break;
+                    case R.id.settings:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new updateFragment()).commit();
+                        break;
+                }
                 menuItem.setChecked(true);
                 mDrawerLayout.closeDrawers();
                 return true;
