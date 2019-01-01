@@ -6,28 +6,36 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.support.v7.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
     //layout variable for nav drawer
     private DrawerLayout mDrawerLayout;
     public static final String EXTRA_MESSAGE = "com.example.MESSAGE";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Set the toolbar that was made in activity_main
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        //actionBar.setDisplayHomeAsUpEnabled(true);
+        //used for setting up the nav drawer that is created
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,mDrawerLayout,
+                toolbar,R.string.nav_drawer_open,R.string.nav_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        //syncState to handle the rotation
+        toggle.syncState();
 
 
         NavigationView navigationView = findViewById(R.id.Nav_menu);
@@ -50,6 +58,23 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+    }
+
+    /**
+     * Needed so that back press will close drawer instead of the app
+     */
+
+    @Override
+    public void onBackPressed() {
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
     }
 
     @Override
@@ -74,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE,message);
-        /**starts instance of the DisplayMessageActivity, now we need to create class*/
+        /*starts instance of the DisplayMessageActivity, now we need to create class*/
         startActivity(intent);
     }
 }
